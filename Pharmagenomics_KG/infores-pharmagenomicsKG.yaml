@@ -1,33 +1,44 @@
-  - id: infores:biothings-multiomics-biggim-drugresponse
+  - id: infores:catrax-pharmacogenomics
     status: released
-    name: Multiomics BigGIM-DrugResponse KP API
+    name: Multiomics Pharmacogenomics KP API
     xref:
-      - https://github.com/NCATSTranslator/Translator-All/wiki/Big-GIM-II:-Drug-Response-KP
-      - https://github.com/NCATS-Tangerine/BigGIM_APIWrapper
+      - https://github.com/NCATSTranslator/Translator-All/wiki/Pharmacogenomics-KP
+    knowledge_level: knowledge_assertion
+    agent_type: automated_agent
+    description: Documentation of the Pharmacogenomics KP query web services.
+    consumes:
+      - infores:drugbank
+      - infores:ncbi-gene
+      - infores:hpo
+      - infores:hpo-annotations
+      - infores:sider
+      - infores:mondo
+      - infores:drugcentral
+      - infores:pharmgkb
+      - infores:primekg
+      - infores:cellmarker
+      - infores:signor
+    consumed_by:
+      - infores:service-provider-trapi
+  - id: infores:primekg
+    status: released
+    name: PrimeKG, Precision Medicine Knowledge Graph
+    xref:
+      - https://github.com/NCATSTranslator/Translator-All/wiki/PrimeKG
+    synonym:
+      - PrimeKG
     knowledge_level: knowledge_assertion
     agent_type: not_provided
-    description: Documentation of the Drug Response KP query web services.
-    consumes:
-      - infores:biogrid
-      - infores:huri
-      - infores:gtex
-      - infores:ttd
-      - infores:tcga
-      - infores:gdsc
     consumed_by:
-      - infores:service-provider-trapi
-
-  - id: infores:biothings-multiomics-pharmagenomics
+      - infores:catrax-pharmacogenomics
+  - id: infores:cellmarker
     status: released
-    name: Multiomics Pharmagenomics KP API
+    name: CellMarker 2.0
     xref:
-      - https://github.com/NCATSTranslator/Translator-All/wiki/XXX
-      - https://github.com/NCATS-Tangerine/XXX
-    knowledge_level: mixed
+      - https://github.com/NCATSTranslator/Translator-All/wiki/CellMarker
+    synonym:
+      - CellMarker
+    knowledge_level: knowledge_assertion
     agent_type: not_provided
-    description: Documentation of the Pharmagenomics KP query web services.
-    consumes:
-      - infores:signor
-      - infores:cellmarker ## Note this new infores is not existed in the current infores catalog
     consumed_by:
-      - infores:service-provider-trapi
+      - infores:catrax-pharmacogenomics
