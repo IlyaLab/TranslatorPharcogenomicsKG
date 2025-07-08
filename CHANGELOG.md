@@ -8,5 +8,6 @@
 Initial commitment to the repo
 
 
-## Please use following labels
-### Added ### Changed ### Fixed ### Removed ### Deprecated ### Security
+## Please use the following labels
+### Knowledge graph levels: BigGIM KG, AML KG, Pharmacogenomics KG
+#### Added, Changed, Fixed, Removed, Deprecated, Security
