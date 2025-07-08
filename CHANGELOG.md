@@ -5,11 +5,8 @@
 
 ## 2025-03-05
 ### Added
-Initial commitment of project
+Initial commitment to the repo
 
-### Added 
-### Changed
-### Fixed
-### Removed
-### Deprecated
-### Security
+
+## Please use following labels
+### Added ### Changed ### Fixed ### Removed ### Deprecated ### Security
