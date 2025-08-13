@@ -1,63 +1,61 @@
-# Comparative Toxicogenomics Database (CTD) Reference Ingest Guide (RIG)
+# SIGnaling Network Open Resource (Signor) Reference Ingest Guide (RIG)
 
 ---------------
 
 ## Source Information
 
 ### Infores
- - [infores:ctd](https://w3id.org/information-resource-registry/ctd)
+ - [infores:signor](https://w3id.org/information-resource-registry/signor)
 
 ### Description (o)
-CTD is a robust, publicly available database that aims to advance understanding about how environmental exposures affect human health. It provides knowledge, manually curated from the literature, about chemicals and their relationship to other biological entities: chemical to gene/protein interactions plus chemical to disease and gene to disease relationships. These data are integrated with functional and pathway data to aid in the development of hypotheses about the mechanisms underlying environmentally influenced diseases. It also generates novel inferences by further analyzing the knowledge they curate/create - based on statistically significant connections with intermediate concept (e.g. Chemical X associated with Disease Y based on shared associations with a common set of genes).
-   
+SIGNOR 3.0, https://signor.uniroma2.it, is a public repository that captures causal information and represents it according to an ‘activity-flow’ model. SIGNOR provides freely-accessible static maps of causal interactions that can be tailored, pruned and refined to build dynamic and predictive models. Each signaling relationship is annotated with an effect (up/down-regulation) and with the mechanism (e.g. binding, phosphorylation, transcriptional activation, etc.) causing the regulation of the target entity. Since its latest release, SIGNOR has undergone a significant upgrade including: (i) a new website that offers an improved user experience and novel advanced search and graph tools; (ii) a significant content growth adding up to a total of approx. 33,000 manually-annotated causal relationships between more than 8900 biological entities; (iii) an increase in the number of manually annotated pathways, currently including pathways deregulated by SARS-CoV-2 infection or involved in neurodevelopment synaptic transmission and metabolism, among others; (iv) additional features such as new model to represent metabolic reactions and a new confidence score assigned to each interaction.
+
 ### Source Category(ies)
 Use terms from the enumerated list [here](https://github.com/NCATSTranslator/translator-ingests/blob/main/src/translator_ingest/ingests/rig-instructions.md#source-categoryies).
 
 - Primary Knowledge Provider
 
 ### Citation (o)
-Davis AP, Wiegers TC, Johnson RJ, Sciaky D, Wiegers J, Mattingly CJ Comparative Toxicogenomics Database (CTD): update 2023. Nucleic Acids Res. 2022 Sep 28.
+Prisca Lo Surdo, Marta Iannuccelli, Silvia Contino, Luisa Castagnoli, Luana Licata, Gianni Cesareni, Livia Perfetto, SIGNOR 3.0, the SIGnaling network open resource 3.0: 2022 update, Nucleic Acids Research, Volume 51, Issue D1, 6 January 2023, Pages D631–D637, https://doi.org/10.1093/nar/gkac883
 
 ### Terms of Use
-No formal license. Bespoke 'terms of use' are described here: https://ctdbase.org/about/legal.jsp
+SIGNOR 3.0 is licensed under Creative Commons Attribution 4.0 International
 
 ### Data Access Locations
 There are two pages for downloading data files.
- - CTD Bulk Downloads: http://ctdbase.org/downloads/  (this page includes file sizes and simple data dictionaries for each download)
- - CTD Catalog: https://ctdbase.org/reports/   (a simple list of files, reports the number of rows in each file)
-   
+ - Signor 3.0 Downloads: https://signor.uniroma2.it/downloads.php  (this page includes file sizes and simple data dictionaries for each download)
+
 ### Provision Mechanisms and Formats
 - Mechanism(s): File download.
-- Formats: tsv, csv, obo, or xml .gz files.
-   
+- Formats: csv files.
+
 ### Releases and Versioning
  - No consistent cadence for releases, but on average there are 1-2 releases each month.
  - Versioning is based on the month and year of the release
- - Releases page / change log: https://ctdbase.org/about/changes/
- - Latest status page: https://ctdbase.org/about/dataStatus.go
+ - Releases page / change log: https://signor.uniroma2.it/downloads.php
 
 ----------------
 
 ## Ingest Information
-    
+
 ### Utility
-CTD is a rich source of manually curated chemical associations to other biological entities which are an important type of edge for Translator query and reasoning use cases, including treatment predictions, chemical-gene regulation predictions, and pathfinder queries.  It is one of the few sources that focus on non-drug chemicals, e.g. environmental stressors, and how these are related to diseases, biological processes, and genes. 
+Signor is a rich source of manually curated genetic  associations to other biological entities which are an important type of edge for Translator query and reasoning use cases, including treatment predictions, gene-gene regulation predictions, and pathfinder queries.  It is one of the sources that focus on drug and genes.
 
 ### Scope
-This initial ingest of CTD covers curated Chemical to Disease associations that report therapeutic and marker/mechanism relationships, and  inferred statistical associations generated by CTD. Additional types of Chemical associations will be added in future updates to the ingest. 
+This initial ingest of Signor covers curated Gene to Gene associations that report therapeutic and marker/mechanism relationships, and  inferred statistical associations generated by Signor.
 
 ### Relevant Files
 Source files with content we aim to ingest.
 
   | File | Location | Description |
   |----------|----------|----------|
-  | CTD_chemicals_diseases.tsv.gz  | http://ctdbase.org/downloads/ |  Manually curated and computationally inferred associations between chemicals and diseases | 
-  | CTD_exposure_events.tsv.gz  | http://ctdbase.org/downloads/ |  Descriptions of statistical studies of how exposure to chemicals affects a particular population, with some records providing outcomes| 
-  
-### Included Content / Records
-Records from the relevant files that are included, and optionally a list of fields in the data that are part of or inform the ingest. 
+  | CTD_chemicals_diseases.tsv.gz  | http://ctdbase.org/downloads/ |  Manually curated and computationally inferred associations between chemicals and diseases |
+  | CTD_exposure_events.tsv.gz  | http://ctdbase.org/downloads/ |  Descriptions of statistical studies of how exposure to chemicals affects a particular population, with some records providing outcomes|
 
-  | File | Included Records | Fields Used (o) | 
+### Included Content / Records
+Records from the relevant files that are included, and optionally a list of fields in the data that are part of or inform the ingest.
+
+  | File | Included Records | Fields Used (o) |
   |----------|----------|----------|
   | CTD_chemicals_diseases.tsv.gz  | Curated therapeutic and marker/mechanism associations (records where a "DirectEvidence" value is populated with type "T" or "M"), as well as inferred associtionas (recrods lacking a value in the DirectEvidence column)  | ChemicalName, ChemicalID, CasRN, DiseaseName, DiseaseID, DirectEvidence, InferenceGeneSymbol, InferenceScore, OmimIDs, PubMedIDs |
 
@@ -78,19 +76,19 @@ Content addditions/changes to consider for future iterations (consider edge cont
   - Consider adding some threshold / cutoff to remove lower quality/confidence inferences (e.g. based on shared gene count, publication count, or inference score. At present we include even inferences based on a single shared gene/pub - which is not really meaningful.
 
 - **Node Properties**
-  - Molepro ingested chemical properties in its previous ingests - which we will likely bring in at some point. 
-    
-- **Edge Properties/EPC Metadata**
-  - Consider an edge property that reports the list of shared genes supporting C-D inferred associations. 
+  - Molepro ingested chemical properties in its previous ingests - which we will likely bring in at some point.
 
-  
+- **Edge Properties/EPC Metadata**
+  - Consider an edge property that reports the list of shared genes supporting C-D inferred associations.
+
+
 -----------------
 
 ##  Target Information
 
 ### Infores:
  - infores:translator-ctd-kgx
-   
+
 ### Edge Types
 
 |  Subject Category |  Predicate | Object Category | Qualifier Types |  AT / KL  | Edge Properties | UI Explanation |
@@ -102,11 +100,11 @@ Content addditions/changes to consider for future iterations (consider edge cont
 **Additional Notes/Rationale (o)**:
 - CTD_chemicals_diseases.tsv. data includes one row per curated 'T', or 'M' association with pub reference(s), plus one row per shared gene association with pub reference(s), and inference scores.
    - Separate edges will be created for each type of association reported between a chemical and a given disease, according to the mappings described above.
-   - All "shared gene" rows in the source data file for a given C-D pair will be aggregated into a single 'associated_with' edge that reprots an associated_with relationship with the inference score as an edge property (and possibly the list of shared genes). 
+   - All "shared gene" rows in the source data file for a given C-D pair will be aggregated into a single 'associated_with' edge that reprots an associated_with relationship with the inference score as an edge property (and possibly the list of shared genes).
    - This means that for a given C-D pair in the CTD file, there may be 1, 2, or 3 separate edges created in the Translator graph.
 - The 'treats_or_applied_or_studied_to_treat' predicate is used to avoid making too strong a claim, as CTDs definition of its "T" flag is broad ("a chemical that has a known or potential therapeutic role in a disease"), which covered cases where a chemical may formally treat a disease or only have been studied or applied to treat a disease. All edges are manual agent knowledge assertions, as the ingested data is based on manual literature curation.
 - The 'correlates_with_or_contributes_to' predicate is used because the CTD 'M' flag does not distinguish between when a chemical is a correlated marker for a condition, or a contributing cause for the condition. All edges are manual agent knowledge assertions, as the ingested data is based on manual literature curation.
-   
+
 ### Node Types
 
 High-level Biolink categories of nodes produced from this ingest as assigned by ingestors are listed below - however downstream normalization of node identifiers may result in new/different categories ultimately being assigned.
@@ -117,10 +115,10 @@ High-level Biolink categories of nodes produced from this ingest as assigned by 
 | DiseaseOrPhenotypicFeature| MeSH | none  |  |
 
 -  The chemical ID row is expected to need a 'MESH:' prefix added, with the disease identifier used as-is.
-  
+
 ### Future Modeling Considerations (o)
 - Revisit use of 'has_confidence_score' edge property if/when we refactor this part of the Biolink Model
-- Revisit 'correlates_with_or_contributes_to' and 'treats_or_studied_or_applied_to_treat' predicates if/when we refactor modeling or conventions here. 
+- Revisit 'correlates_with_or_contributes_to' and 'treats_or_studied_or_applied_to_treat' predicates if/when we refactor modeling or conventions here.
 
 
 -----------------
