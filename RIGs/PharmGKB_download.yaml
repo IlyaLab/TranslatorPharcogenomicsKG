@@ -1,0 +1,20 @@
+## !!!! Note this data is complicated to download because the website uses php forms. This is currently not compatible
+# with the kghub_downloader. In the short term, to get this to work, I moved a copy to a RENCI server.
+
+# To get the right data from the signor website:
+##  Need to select "Access Dataset" -> select "Original Format ZIP" as download option
+## the downloaded file's name will be in a zip file with name "dataverse_files.zip"
+#---
+
+- url: https://api.clinpgx.org/v1/download/file/data/relationships.zip
+  local_name: relationships.zip
+- url: https://api.clinpgx.org/v1/download/file/data/genes.zip
+  local_name: genes.zip
+- url: https://api.clinpgx.org/v1/download/file/data/chemicals.zip
+  local_name: chemicals.zip
+- url: https://api.clinpgx.org/v1/download/file/data/drugs.zip
+  local_name: drugs.zip
+- url: https://api.clinpgx.org/v1/download/file/data/phenotypes.zip
+  local_name: phenotypes.zip
+- url: https://api.clinpgx.org/v1/download/file/data/variants.zip
+  local_name: variants.zip
