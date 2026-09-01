@@ -1,0 +1,321 @@
+# Reference Ingest Guide (RIG)
+name: The Pharmacogenomics Knowledge Base (PharmGKB) Reference Ingest Guide
+
+#
+# Information about the Source of the data ingest
+source_info:
+  infores_id: infores:PharmGKB
+  name: The Pharmacogenomics Knowledge Base (PharmGKB)
+  description: "PharmGKB, is an interactive tool for researchers investigating how genetic variation affects drug response. Our goals are to make clinical PGx accessible and facilitate its integration with genomic medicine. ClinPGx is an affiliate grant of the Clinical Genome Resource"
+  citations:
+    - "M. Whirl-Carrillo, R. Huddart, L. Gong, K. Sangkuhl, C.F. Thorn, R. Whaley, T.E. Klein. "An evidence-based framework for evaluating pharmacogenomics knowledge for personalized medicine" Clinical Pharmacology & Therapeutics (2021) Sep;110(3):563-572."
+  terms_of_use_info:
+    license_name: "Creative Commons Attribution 4.0 International"
+    license_url: "https://creativecommons.org/licenses/by/4.0/legalcode"
+  data_access_locations:
+    - "Downloads: https://www.clinpgx.org/downloads (this page includes file sizes and simple data dictionaries for each download)"
+  data_provision_mechanisms:
+    - file_download
+  data_formats:
+    - tsv
+  data_versioning_and_releases: "No consistent cadence for releases. Versioning is based on download timestamp of the month and year of the release. Releases page / change log: https://www.clinpgx.org/downloads"
+  source_status: maintained_regular_updates
+  additional_notes:
+    - ""
+
+# Information about Ingested Content
+ingest_info:
+  ingest_categories:
+    - primary_knowledge_provider
+  utility: "ClinPGx is a comprehensive clinical pharmacogenomic (PGx) resource created to support and expand PGx knowledge, implementation and education."
+  scope: "This initial ingest of CPIC covers manually curated causal associations between genes and drugs"
+
+  relevant_files:
+    - file_name: "relationships.tsv"
+      location: "https://www.clinpgx.org/downloads"
+      description: "Relationships summarized from ClinPGx annotations."
+    - file_name: "genes.tsv"
+      location: "https://www.clinpgx.org/downloads"
+      description: "A summary of the gene information used by ClinPGx and how it has been annotated."
+    - file_name: "drugs.tsv"
+      location: "https://www.clinpgx.org/downloads"
+      description: "Summaries of chemical information annotated by ClinPGx. The list of drugs is a subset of the list of all chemicals annotated by ClinPGx."
+    - file_name: "chemicals.tsv"
+      location: "https://www.clinpgx.org/downloads"
+      description: "Summaries of chemical information annotated by ClinPGx. The list of drugs is a subset of the list of all chemicals annotated by ClinPGx."
+    - file_name: "variants.tsv"
+      location: "https://www.clinpgx.org/downloads"
+      description: "A summary of variants annotated by ClinPGx that have also been tracked in dbSNP."
+    - file_name: "phenotypes.tsv"
+      location: "https://www.clinpgx.org/downloads"
+      description: "A summary of disease and other phenotypes that have been annotated by ClinPGx."
+
+  included_content:
+    - file_name: "relationships.tsv"
+      included_records: "Relationships summarized from ClinPGx annotations."
+      fields_used: "Entity1_id, Entity1_name, Entity1_type, Entity2_id, Entity2_name, Entity2_type, Evidence, Association, PMIDs"
+
+  filtered_content:
+    - file_name: ""
+      filtered_records: ""
+      rationale: ""
+
+  ## causing issues in local test
+  future_considerations:
+    - category: edge_content
+      consideration: ""
+
+## Information about the Graph Output by the ingest
+## SIGNOR causual mechanism mapping (see mappings here: https://docs.google.com/spreadsheets/d/1DeAE04O1mz3R9s3dCZpG2hQp9hwif5WjdkUMsBci-u8/edit?gid=0#gid=0&range=D16))
+target_info:
+  edge_type_info:
+    - subject_categories:
+        - biolink:Gene
+      predicates:
+        - biolink:associated_with
+      object_categories:
+        - biolink:ChemicalEntity
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - text_mining_agent
+      primary_knowledge_sources:
+        - infores:PharmGKB
+      ## MHB: edge properties need to include "biolink" prefix.; QW: fixed, thanks for pointing this out!
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "ClinPGx records indicate the gene is associated with certain ChemicalEntity"
+
+    - subject_categories:
+        - biolink:Gene
+      predicates:
+        - biolink:associated_with
+      object_categories:
+        - biolink:Disease
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - text_mining_agent
+      primary_knowledge_sources:
+        - infores:PharmGKB
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "ClinPGx records indicate the gene is associated with certain Disease"
+
+    - subject_categories:
+        - biolink:Gene
+      predicates:
+        - biolink:associated_with
+      object_categories:
+        - biolink:Gene
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - text_mining_agent
+      primary_knowledge_sources:
+        - infores:PharmGKB
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "ClinPGx records indicate the gene is associated with certain Gene"
+
+    - subject_categories:
+        - biolink:Disease
+      predicates:
+        - biolink:associated_with
+      object_categories:
+        - biolink:Disease
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - text_mining_agent
+      primary_knowledge_sources:
+        - infores:PharmGKB
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "ClinPGx records indicate the Disease is associated with certain Disease"
+
+    - subject_categories:
+        - biolink:Disease
+      predicates:
+        - biolink:associated_with
+      object_categories:
+        - biolink:Gene
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - text_mining_agent
+      primary_knowledge_sources:
+        - infores:PharmGKB
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "ClinPGx records indicate the Disease is associated with certain Gene"
+
+    - subject_categories:
+        - biolink:ChemicalEntity
+      predicates:
+        - biolink:associated_with
+      object_categories:
+        - biolink:ChemicalEntity
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - text_mining_agent
+      primary_knowledge_sources:
+        - infores:PharmGKB
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "ClinPGx records indicate the ChemicalEntity is associated with certain ChemicalEntity"
+
+    - subject_categories:
+        - biolink:ChemicalEntity
+      predicates:
+        - biolink:associated_with
+      object_categories:
+        - biolink:Gene
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - text_mining_agent
+      primary_knowledge_sources:
+        - infores:PharmGKB
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "ClinPGx records indicate the ChemicalEntity is associated with certain Gene"
+
+    - subject_categories:
+        - biolink:ChemicalEntity
+      predicates:
+        - biolink:associated_with
+      object_categories:
+        - biolink:MacromolecularComplex
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - text_mining_agent
+      primary_knowledge_sources:
+        - infores:PharmGKB
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "ClinPGx records indicate the ChemicalEntity is associated with certain MacromolecularComplex"
+
+  node_type_info:
+    - node_category: biolink:Gene
+      source_identifier_types:
+        - "NCBIGene"
+    - node_category: biolink:ChemicalEntity
+      source_identifier_types:
+        - "PUBCHEM.COMPOUND:"
+    - node_category: biolink:Disease
+      source_identifier_types:
+        - "MeSH"
+  future_considerations:
+    - category: node_properties  # conformance: was 'node_content'
+      consideration: ""
+
+# Information about the how the ingest was specified and performed
+provenance_info:
+  contributions:
+    - "Qi Wei: code author, data modeling"
+    - "Yue Zhang: data modeling"
+    - "Guangrong Qin: data modeling, domain expertise"
+    - "Sierra Moxon: code support"
+    - "Matthew Brush: data modeling, domain expertise"
+  artifacts:
+    - "Ingest Survey: "
+    - "Ingest Ticket: "

@@ -1,0 +1,19 @@
+## !!!! Note this data is complicated to download because the website uses php forms. This is currently not compatible
+# with the kghub_downloader. In the short term, to get this to work, I moved a copy to a RENCI server.
+
+# To get the right data from the signor website:
+##  Need to select "complete dataset" -> select "Homo sapiens" as organisms -> select "file tsv" as format
+## the downloaded file's name will be all_data_<current date when downloaded>.tsv directly
+#---
+
+- url: https://www.clinpgx.org/cpic/pairs
+  local_name: cpic-genes-drugs.tsv
+
+- url: https://api.clinpgx.org/v1/download/file/data/genes.zip
+  local_name: genes.zip
+
+- url: https://api.clinpgx.org/v1/download/file/data/drugs.zip
+  local_name: drugs.zip
+
+- url: https://api.clinpgx.org/v1/download/file/data/chemicals.zip
+  local_name: chemicals.zip

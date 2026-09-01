@@ -1,0 +1,372 @@
+# Reference Ingest Guide (RIG)
+name: Precision Medicine Oriented Knowledge Graph (PrimeKG) Reference Ingest Guide
+
+#
+# Information about the Source of the data ingest
+source_info:
+  infores_id: infores:PrimeKG
+  name: Precision Medicine Oriented Knowledge Graph (PrimeKG)
+  description: "PrimeKG, a precision medicine-oriented knowledge graph that provides a holistic view of diseases. PrimeKG integrates 20 high-quality resources to describe 17,080 diseases with 4,050,249 relationships representing ten major biological scales, including disease-associated protein perturbations, biological processes and pathways, anatomical and phenotypic scale, and the entire range of approved and experimental drugs with their therapeutic action, considerably expanding previous efforts in disease-rooted knowledge graphs."
+  citations:
+    - "Chandak, Payal, 2022, "PrimeKG", https://doi.org/10.7910/DVN/IXA7BM, Harvard Dataverse, V2"
+  terms_of_use_info:
+    license_name: "Creative Commons Public Domain Dedication (CC0 1.0 Universal)"
+    license_url: "https://creativecommons.org/publicdomain/zero/1.0/"
+  data_access_locations:
+    - "Downloads: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IXA7BM (this page includes file sizes and simple data dictionaries for each download)"
+  data_provision_mechanisms:
+    - file_download
+  data_formats:
+    - csv
+  data_versioning_and_releases: "No consistent cadence for releases. Versioning is based on the month and year of the release. Releases page / change log: https://zitniklab.hms.harvard.edu/projects/PrimeKG/"
+  source_status: maintained_regular_updates
+  additional_notes:
+    - ""
+
+# Information about Ingested Content
+ingest_info:
+  ingest_categories:
+    - primary_knowledge_provider
+  utility: "PrimeKG integrates 20 high-quality resources to describe 17,080 diseases with 4,050,249 relationships representing ten major biological scales"
+  scope: "This initial ingest of PrimeKG covers disease-associated protein perturbations, biological processes and pathways, anatomical and phenotypic scale, and the entire range of approved and experimental drugs with their therapeutic action"
+
+  relevant_files:
+    - file_name: "nodes.csv"
+      location: "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IXA7BM"
+      description: "Node file"
+    - file_name: "kg.csv"
+      location: "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IXA7BM"
+      description: "Associations covers disease-associated protein perturbations, biological processes and pathways, anatomical and phenotypic scale, and the entire range of approved and experimental drugs with their therapeutic action"
+
+  included_content:
+    - file_name: "kg.csv"
+      included_records: "Include those 4 node types: 'gene/protein', 'drug', 'disease', 'effect/phenotype'"
+      fields_used: ""
+
+  filtered_content:
+    - file_name: "kg.csv"
+      filtered_records: "Removed records with column 'node_source' as 'MONDO_grouped'."
+      rationale: "cannot handle those grouped MONDO codes"
+
+  ## causing issues in local test
+  future_considerations:
+    - category: edge_content
+      consideration: ""
+
+## Information about the Graph Output by the ingest
+## SIGNOR causual mechanism mapping (see mappings here: https://docs.google.com/spreadsheets/d/1DeAE04O1mz3R9s3dCZpG2hQp9hwif5WjdkUMsBci-u8/edit?gid=0#gid=0&range=D16))
+target_info:
+  edge_type_info:
+    - subject_categories:
+        - biolink:Gene
+      predicates:
+        - biolink:genetically_associated_with
+      object_categories:
+        - biolink:PhenotypicFeature
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - automated_agent
+      primary_knowledge_sources:
+        - infores:PrimeKG
+      ## MHB: edge properties need to include "biolink" prefix.; QW: fixed, thanks for pointing this out!
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "PrimeKG records indicate the gene is associated with genetically to certain PhenotypicFeature"
+
+    - subject_categories:
+        - biolink:Gene
+      predicates:
+        - biolink:genetically_associated_with
+      object_categories:
+        - biolink:Disease
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - automated_agent
+      primary_knowledge_sources:
+        - infores:PrimeKG
+      ## MHB: edge properties need to include "biolink" prefix.; QW: fixed, thanks for pointing this out!
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "PrimeKG records indicate the gene is associated with genetically to certain Disease"
+
+    - subject_categories:
+        - biolink:Gene
+      predicates:
+        - biolink:can_be_carried_out_by
+      object_categories:
+        - biolink:Drug
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - automated_agent
+      primary_knowledge_sources:
+        - infores:PrimeKG
+      ## MHB: edge properties need to include "biolink" prefix.; QW: fixed, thanks for pointing this out!
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "PrimeKG records indicate the gene can be carried out by certain Drug"
+
+    - subject_categories:
+        - biolink:Drug
+      predicates:
+        - biolink:has_contraindication
+      object_categories:
+        - biolink:Disease
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - automated_agent
+      primary_knowledge_sources:
+        - infores:PrimeKG
+      ## MHB: edge properties need to include "biolink" prefix.; QW: fixed, thanks for pointing this out!
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "PrimeKG records indicate the Drug has contributions to certain Disease"
+
+    - subject_categories:
+        - biolink:Drug
+      predicates:
+        - biolink:treats
+      object_categories:
+        - biolink:Disease
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - automated_agent
+      primary_knowledge_sources:
+        - infores:PrimeKG
+      ## MHB: edge properties need to include "biolink" prefix.; QW: fixed, thanks for pointing this out!
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "PrimeKG records indicate the Drug can be off-label use as treatment to certain Disease"
+
+    - subject_categories:
+        - biolink:Disease
+      predicates:
+        - biolink:broad_match
+      object_categories:
+        - biolink:Disease
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - automated_agent
+      primary_knowledge_sources:
+        - infores:PrimeKG
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "PrimeKG records indicate the Disease has a parent-child relationship to certain Disease"
+
+    - subject_categories:
+        - biolink:PhenotypicFeature
+      predicates:
+        - biolink:broad_match
+      object_categories:
+        - biolink:PhenotypicFeature
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - automated_agent
+      primary_knowledge_sources:
+        - infores:PrimeKG
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "PrimeKG records indicate the PhenotypicFeature has a parent-child relationship to certain PhenotypicFeature"
+
+    - subject_categories:
+        - biolink:Disease
+      predicates:
+        - biolink:has_phenotype
+      object_categories:
+        - biolink:PhenotypicFeature
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - automated_agent
+      primary_knowledge_sources:
+        - infores:PrimeKG
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "PrimeKG records indicate the Disease has certain PhenotypicFeature"
+
+    - subject_categories:
+        - biolink:Gene
+      predicates:
+        - biolink:physical_interacts_with
+      object_categories:
+        - biolink:Gene
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - automated_agent
+      primary_knowledge_sources:
+        - infores:PrimeKG
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "PrimeKG records indicate the Gene is physically interactes with certain Genes"
+
+    - subject_categories:
+        - biolink:Gene
+      predicates:
+        - biolink:target_for
+      object_categories:
+        - biolink:Drug
+      qualifiers:
+        - property: biolink:qualified_predicate
+          value_enumeration:
+              - None
+        - property: biolink:object_aspect_qualifier
+          value_enumeration:
+              - None
+        - property: biolink:object_direction_qualifier
+          value_enumeration:
+            - None
+        - property: biolink:species_context_qualifier
+          value_description: None
+      knowledge_level:
+        - knowledge_assertion
+      agent_type:
+        - automated_agent
+      primary_knowledge_sources:
+        - infores:PrimeKG
+      edge_properties:
+        - biolink:publications
+      ui_explanation: "PrimeKG records indicate the Gene is target for certain Drug"
+
+  node_type_info:
+    - node_category: biolink:Gene
+      source_identifier_types:
+        - "NCBIGene"
+    - node_category: biolink:PhenotypicFeature
+      source_identifier_types:
+        - "HP"
+    - node_category: biolink:Drug
+      source_identifier_types:
+        - "DRUGBANK"
+    - node_category: biolink:Disease
+      source_identifier_types:
+        - "MONDO"
+  future_considerations:
+    - category: node_properties  # conformance: was 'node_content'
+      consideration: ""
+
+# Information about the how the ingest was specified and performed
+provenance_info:
+  contributions:
+    - "Qi Wei: code author, data modeling"
+    - "Yue Zhang: data modeling"
+    - "Guangrong Qin: data modeling, domain expertise"
+    - "Sierra Moxon: code support"
+    - "Matthew Brush: data modeling, domain expertise"
+  artifacts:
+    - "Ingest Survey: "
+    - "Ingest Ticket: "
