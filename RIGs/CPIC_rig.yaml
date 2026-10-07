@@ -18,7 +18,7 @@ source_info:
     - file_download
   data_formats:
     - tsv
-  data_versioning_and_releases: "No consistent cadence for releases, but on average there are 1-2 releases each month. Versioning is based on the month and year of the release. Releases page / change log: https://signor.uniroma2.it/downloads.php"
+  data_versioning_and_releases: "Literature annotations and variant annotations are added in real time as a curator annotates the paper. Pathways and summary annotations (aka clinical annotations) are reviewed periodically. New clinical guideline annotations and drug label annotations are added as they become evident.(see FAQs: https://www.clinpgx.org/page/faqs#how-often-is-clinpgx-updated)"
   source_status: maintained_regular_updates
   additional_notes:
     - ""
@@ -52,7 +52,7 @@ ingest_info:
       consideration: ""
 
 ## Information about the Graph Output by the ingest
-## SIGNOR causual mechanism mapping (see mappings here: https://docs.google.com/spreadsheets/d/1DeAE04O1mz3R9s3dCZpG2hQp9hwif5WjdkUMsBci-u8/edit?gid=0#gid=0&range=D16))
+## causual mechanism mapping (see mappings here: https://docs.google.com/spreadsheets/d/1m4cD_gj3joA9-sOnftpPNHR-6hTGnTjE/edit?gid=727579479#gid=727579479))
 target_info:
   edge_type_info:
     - subject_categories:
@@ -79,12 +79,11 @@ target_info:
         - text_mining_agent
       primary_knowledge_sources:
         - infores:CPIC
-      ## MHB: edge properties need to include "biolink" prefix.; QW: fixed, thanks for pointing this out!
       edge_properties:
         - biolink:publications
         - biolink:attributes
         - biolink:supporting_text
-      ui_explanation: "Signor records indicate the gene is associated with response to certain drug"
+      ui_explanation: "CPIC records indicate the gene is associated with response to certain drug"
 
   node_type_info:
     - node_category: biolink:Gene

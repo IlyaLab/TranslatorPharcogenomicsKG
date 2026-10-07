@@ -1,13 +1,10 @@
 ## !!!! Note this data is complicated to download because the website uses php forms. This is currently not compatible
-# with the kghub_downloader. In the short term, to get this to work, I moved a copy to a RENCI server.
+# with the kghub_downloader. In the short term, to get this to work, Evan from DINGO team need to moved a copy to a RENCI server.
 
-# To get the right data from the signor website:
-##  Need to select "Access Dataset" -> select "Original Format ZIP" as download option
-## the downloaded file's name will be in a zip file with name "dataverse_files.zip"
+# To get the right data from the Harvard Dataverse homepage website:
+##  Need to click and select the needed files nodes.csv and kg.csv as download option and then manually click the download button
 #---
 
-- url: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IXA7BM
-  local_name: dataverse_files.zip
 - url: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IXA7BM
   local_name: nodes.csv
 - url: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IXA7BM
