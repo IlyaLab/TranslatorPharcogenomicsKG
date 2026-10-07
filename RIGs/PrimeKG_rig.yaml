@@ -54,7 +54,7 @@ ingest_info:
       consideration: ""
 
 ## Information about the Graph Output by the ingest
-## SIGNOR causual mechanism mapping (see mappings here: https://docs.google.com/spreadsheets/d/1DeAE04O1mz3R9s3dCZpG2hQp9hwif5WjdkUMsBci-u8/edit?gid=0#gid=0&range=D16))
+## causual mechanism mapping (see mappings here: https://docs.google.com/spreadsheets/d/1m4cD_gj3joA9-sOnftpPNHR-6hTGnTjE/edit?gid=727579479#gid=727579479))
 target_info:
   edge_type_info:
     - subject_categories:
@@ -81,7 +81,6 @@ target_info:
         - automated_agent
       primary_knowledge_sources:
         - infores:PrimeKG
-      ## MHB: edge properties need to include "biolink" prefix.; QW: fixed, thanks for pointing this out!
       edge_properties:
         - biolink:publications
       ui_explanation: "PrimeKG records indicate the gene is associated with genetically to certain PhenotypicFeature"
@@ -110,7 +109,6 @@ target_info:
         - automated_agent
       primary_knowledge_sources:
         - infores:PrimeKG
-      ## MHB: edge properties need to include "biolink" prefix.; QW: fixed, thanks for pointing this out!
       edge_properties:
         - biolink:publications
       ui_explanation: "PrimeKG records indicate the gene is associated with genetically to certain Disease"
@@ -139,7 +137,6 @@ target_info:
         - automated_agent
       primary_knowledge_sources:
         - infores:PrimeKG
-      ## MHB: edge properties need to include "biolink" prefix.; QW: fixed, thanks for pointing this out!
       edge_properties:
         - biolink:publications
       ui_explanation: "PrimeKG records indicate the gene can be carried out by certain Drug"
@@ -168,7 +165,6 @@ target_info:
         - automated_agent
       primary_knowledge_sources:
         - infores:PrimeKG
-      ## MHB: edge properties need to include "biolink" prefix.; QW: fixed, thanks for pointing this out!
       edge_properties:
         - biolink:publications
       ui_explanation: "PrimeKG records indicate the Drug has contributions to certain Disease"
@@ -197,7 +193,6 @@ target_info:
         - automated_agent
       primary_knowledge_sources:
         - infores:PrimeKG
-      ## MHB: edge properties need to include "biolink" prefix.; QW: fixed, thanks for pointing this out!
       edge_properties:
         - biolink:publications
       ui_explanation: "PrimeKG records indicate the Drug can be off-label use as treatment to certain Disease"

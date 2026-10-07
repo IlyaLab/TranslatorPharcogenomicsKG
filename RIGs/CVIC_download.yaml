@@ -1,9 +1,6 @@
-## !!!! Note this data is complicated to download because the website uses php forms. This is currently not compatible
-# with the kghub_downloader. In the short term, to get this to work, I moved a copy to a RENCI server.
-
 # To get the right data from the CIVIC db website:
-##  Need to manually click on each tab to download following files
-## the downloaded file's name will be <Date>_xxxx.tsv directly
+# Need to select/click the latest "Variants tsv" and "Evidence"" as format
+# the downloaded file's name will be 01-<current month when downloaded>-<current year when downloaded>-VariantSummaries.tsv and 01-<current month when downloaded>-<current year when downloaded>-AcceptedClinicalEvidenceSummaries.tsv directly
 #---
 
 - url: https://civicdb.org/releases/main
